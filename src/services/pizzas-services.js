@@ -1,12 +1,12 @@
-import config from "../../dbconfig";
-import sql, { pool } from 'mssql';
-import Pizza, { pool } from './../models/pizza.js'
+import config from "../../dbconfig.js";
+import sql from 'mssql';
+import Pizza from './../models/pizza.js'
 
 class PizzaService {
 
 getAll = async () => { 
     let returnEntity = null;
-    console.log('estoy en PizzasServices.getById(id)');
+    console.log('estoy en PizzasServices.getaLL');
     try {
         let pool    = await sql.connect(config);
         let result  = await pool.request()
@@ -45,7 +45,7 @@ try {
                                     .input('pImporte', sql.Float, pizza.Importe)
                                     .input('pDescripcion', sql.VarChar, pizza.Descripcion)
 
-                                    .query('Insert into Pizzas (Nombre,LibreGluten,Importe, Descripcion) Values (pNombre, pLibreGluten, pImporte, pDescripcion ) ')
+                                    .query('Insert into Pizzas (Nombre,LibreGluten,Importe, Descripcion) Values (@pNombre, @pLibreGluten, @pImporte, @pDescripcion ) ')
     rowsAffected = result.rowsAffected;
 } catch (error) {
     console.log(error);
