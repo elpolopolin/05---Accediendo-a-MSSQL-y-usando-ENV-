@@ -1,7 +1,24 @@
 {
   "dependencies": {
     "dotenv": "^16.0.3",
-    "mssql": "^9.1.1",
-    "run": "^1.4.0"
-  }
+    "mssql": "^9.1.1"
+  },
+  "name": "05---accediendo-a-mssql-y-usando-env-",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elpolopolin/05---Accediendo-a-MSSQL-y-usando-ENV-.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elpolopolin/05---Accediendo-a-MSSQL-y-usando-ENV-/issues"
+  },
+  "homepage": "https://github.com/elpolopolin/05---Accediendo-a-MSSQL-y-usando-ENV-#readme"
 }
