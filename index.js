@@ -2,6 +2,16 @@ import config from "./dbconfig.js";
 import sql from 'mssql';
 import PizzaService from "./src/services/pizzas-services.js";
 import Pizza from "./src/models/pizza.js";
+import express from "express";
+
+
+const app = new express();
+
+const port = 3000;
+
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+  })
 
 //1
 let svc = new PizzaService()
@@ -13,7 +23,9 @@ let resultado2 = await svc.getById(4);
 console.log( resultado2);
 //3
 let svc3 = new PizzaService()
-let pizza = new Pizza [ 8, "pizza de yemen",0, 500, "pizza deliciosa traida de lituana desarrollada a base de pene de perro molido"];
+let pizza = new Pizza ( "pizza de yemen",0, 500, "pizza deliciosa traida de lituana desarrollada a base de pene de perro molido");
+
+
 let resultado3 = await svc.insert(pizza);
 console.log( resultado3);
 
@@ -32,3 +44,7 @@ console.log(result.rowsAffected) // el numero de rows (filas) afectados por las 
 
 process.exit();
 */
+
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+  })

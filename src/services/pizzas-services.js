@@ -2,6 +2,7 @@ import config from "../../dbconfig.js";
 import sql from 'mssql';
 import Pizza from './../models/pizza.js'
 
+
 class PizzaService {
 
 getAll = async () => { 
@@ -36,6 +37,9 @@ getById = async (id) => {
 
 insert = async (pizza) => {
     let rowsAffected = 0;
+    
+    console.log(pizza);
+
 console.log('estoy en:  PizzasService.insert(id)');
 try {
     let pool    = await sql.connect(config);
