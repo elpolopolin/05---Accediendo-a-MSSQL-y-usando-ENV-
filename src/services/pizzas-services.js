@@ -49,7 +49,7 @@ try {
                                     .input('pImporte', sql.Float, pizza.Importe)
                                     .input('pDescripcion', sql.VarChar, pizza.Descripcion)
 
-                                    .query('Insert into Pizzas (Nombre,LibreGluten,Importe, Descripcion) Values (@pNombre, @pLibreGluten, @pImporte, @pDescripcion ) ')
+                                    .query('Insert into Pizzas (Nombre,LibreGluten,Importe, Descripcion) Values (@pNombre, @pLibreGluten, @pImporte, @pDescripcion )')
     rowsAffected = result.rowsAffected;
 } catch (error) {
     console.log(error);
