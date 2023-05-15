@@ -6,36 +6,66 @@ import express from "express";
 
 
 const app = new express();
-
+app.use(express.json());
 const port = 3000;
 
-
+let svc = new PizzaService()
  
 //1
-app.get('/', (req, res) => {
-let svc = new PizzaService()
-let resultado = svc.getAll();
-res.send(resultado);
-console.log(resultado);
+app.get('/', async (req, res) => {
+  
+  let resultado = await svc.getAll();
+  res.send(resultado);
+  console.log(resultado);
 })
 
 
-//2
-let svc2 = new PizzaService()
-let resultado2 = await svc.getById(4);
-console.log( resultado2);
-//3
-let svc3 = new PizzaService()
-let pizza = new Pizza ( "pizza de mobno",0, 500, "pizza deliciosa traida de lituana desarrollada a base de pene de perro molido");
+app.get('/getbyid/:id', async (req, res) => {
+try {
+  let resultado = await svc.getById(req.params.id);
+  res.send(resultado);
+  console.log(resultado);
+} catch (res) {
+  console.log(error);
+}
+ 
+})
 
+//revisar
+app.post('/insert', async (req, res) => {
+  let resultado = null;
+     let pizza = new Pizza ();
+     pizza.nombre = req.body.Nombre;
+     pizza.libreGluten = req.body.LibreGluten;
+     pizza.importe = req.body.Importe;
+     pizza.descripcion = req.body.Descripcion;
+    console.log(pizza);
+    resultado = await svc.insert(pizza);
+    res.send(resultado);
+    console.log(resultado)
+ 
 
-let resultado3 = await svc.insert(pizza);
-console.log( resultado3);
+})
 
+app.put('/update/:id', async function (req,res) {
+
+  let pizza = new Pizza ();
+     pizza.nombre = "pizza rica";
+     pizza.libreGluten = 0;
+     pizza.importe = 500;
+     pizza.descripcion = "jaja";
+    console.log(pizza);
+  let resultado = await svc.update(Objparametros.id, Objparametros.nombre, Objparametros.libreGluten, Objparametros.importe, Objparametros.descripcion)
+  res.send(resultado);
+})
+  
+//revisar
+app.delete('/delete/:id', async (req, res) => {
+  let resultado = await svc.deleteById(req.params.id);
+  res.send(resultado);
+})
 
 /*
-let pool = await sql.connect(config);
-let result = await pool.request().query("SELECT top 2 * from Pizzas");
 
 console.log(result.recordsets.length) //recuento de conjuntos de registros devueltos por el procedimiento
 console.log(result.recordsets[0].length) //recuento de filas devueltas en el primer conjunto de registros
