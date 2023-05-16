@@ -59,14 +59,20 @@ class PizzaService {
         return rowsAffected;
     }
 
-    update = async (Pizza) => {
+    update = async (pizza) => {
         let rowsAffected = 0;
         console.log('estoy en:  PizzasService.update(id)');
         try {
             let pool    = await sql.connect(config);
             let result = await pool.request()
-                                            .input('pId', sql.Int, id)
-                                            .query('DELETE FROM Pizzas WHERE id = @pId')
+                                            .input('pId', sql.Int, pizza.id)
+
+                                            .input('pNombre', sql.VarChar, pizza.nombre)
+                                            .input('pLibreGluten', sql.Bit, pizza.libreGluten)
+                                            .input('pImporte', sql.Float, pizza.importe)
+                                            .input('pDescripcion', sql.VarChar, pizza.descripcion)
+
+                                            .query('UPDATE Pizzas SET Nombre=@pNombre, LibreGluten=@pLibreGluten, Importe=@pImporte, Descripcion=@pDescripcion WHERE id = @pId')
             rowsAffected = result.rowsAffected;
         } catch (error) {
             console.log(error);

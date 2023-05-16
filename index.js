@@ -6,13 +6,16 @@ import express from "express";
 
 
 const app = new express();
+
+app.use(express.static('public'));
+
 app.use(express.json());
 const port = 3000;
 
 let svc = new PizzaService()
  
 //1
-app.get('/', async (req, res) => {
+app.get('/getAll', async (req, res) => {
   
   let resultado = await svc.getAll();
   res.send(resultado);
@@ -50,12 +53,14 @@ app.post('/insert', async (req, res) => {
 app.put('/update/:id', async function (req,res) {
 
   let pizza = new Pizza ();
-     pizza.nombre = "pizza rica";
-     pizza.libreGluten = 0;
-     pizza.importe = 500;
-     pizza.descripcion = "jaja";
+    pizza.id = req.params.id;
+    pizza.nombre = req.body.Nombre;
+     pizza.libreGluten = req.body.LibreGluten;
+     pizza.importe = req.body.Importe;
+     pizza.descripcion = req.body.Descripcion;
     console.log(pizza);
-  let resultado = await svc.update(Objparametros.id, Objparametros.nombre, Objparametros.libreGluten, Objparametros.importe, Objparametros.descripcion)
+    let resultado = null;
+   resultado = await svc.update(pizza)
   res.send(resultado);
 })
   
