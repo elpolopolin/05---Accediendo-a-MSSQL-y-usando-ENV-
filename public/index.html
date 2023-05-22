@@ -11,7 +11,23 @@
 </head>
 <body>
     <center>
-    <button onclick="getAll()">GetAll</button>
+    <button onclick="getAll()">getAll</button>
+    <div id="pizzas-list"></div>
+   <input type="number" id="textId"></input> <button onclick="getByid()">Buscar por id</button>
+    <div id="pizza-byId"></div>
+
+    <br>
+    <h1>Update</h1>
+    <label for="">Id<input type="number" id="textId"></label> 
+    <br>
+    <label for="">Nombre<input type="text" id="textNombre"></label> 
+    <br>
+    <label for="">LibreGluten<input type="checkbox" id="textLibreGluten"></label> 
+    <br>
+    <label for="">Importe<input type="number" id="textImporte"></label> 
+    <br>
+    <label for="">Descripcion<input type="text" id="textDescripcion"></label> 
+    <button onclick="update()">Update</button>
 </center>
 <script src="main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>

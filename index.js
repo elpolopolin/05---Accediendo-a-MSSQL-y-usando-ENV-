@@ -23,7 +23,7 @@ app.get('/getAll', async (req, res) => {
 })
 
 
-app.get('/getbyid/:id', async (req, res) => {
+app.get('/getById/:id', async (req, res) => {
 try {
   let resultado = await svc.getById(req.params.id);
   res.send(resultado);
