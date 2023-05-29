@@ -34,6 +34,42 @@ function getAll () {
 
     }
 
+    function getIngredientes () {
+
+        axios
+        .get("http://localhost:3000/ingredientes/getAll")
+    
+        .then((result) => {
+            var resultado = result.data
+            console.log(resultado);
+                
+                let table = '<table class="table table-striped table-hover">';
+                table += `<thead class="table"><tr><th class="col-1 text-center">Id</th><th class="col-3">Nombre</th><th class="col-5">Descripcion</th><th class="col-2 text-center">Importe</th><th class="col-1 text-center">Libre Gluten</th></tr></thead>`;
+                
+                resultado.forEach((unPizza, index) => {
+                    table += `<tr>`;
+                    table += `<td scope="col" class="text-center">${unPizza.Id}</td>`;
+                    table += `<td scope="col">${unPizza.Nombre}</td>`;
+                    table += `<td scope="col">${unPizza.Descripcion}</td>`;
+                    table += `<td scope="col" class="text-center">${unPizza.Importe}</td>`;
+                    table += `<td scope="col" class="text-center">${unPizza.LibreGluten}</td>`;
+                    table += `<td scope="col" class="text-center"><button onclick="eliminar(${unPizza.Id})">Eliminar</button></td>`;
+                    table += `</tr>`;
+                  });
+                  table += "</table>";
+                  document.getElementById("pizzas-list").innerHTML = table;
+            
+                })
+        
+    
+        .catch((error) => {
+            console.log(error);
+        })
+    
+        }
+
+    
+
 
     function eliminar(Id) {
         url = "http://localhost:3000/delete/" + Id;
@@ -124,7 +160,7 @@ function insert () {
         Descripcion: descripcion
 
     }
-    console.log(objPizza);
+    
     
     axios
     
