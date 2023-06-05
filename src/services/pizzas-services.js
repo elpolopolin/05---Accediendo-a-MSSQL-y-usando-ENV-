@@ -1,6 +1,7 @@
 import config from "../../dbconfig.js";
 import sql from 'mssql';
 import Pizza from './../models/pizza.js'
+import IngredientesService from './ingredientes-services.js';
 
 
 class PizzaService {
@@ -30,6 +31,9 @@ class PizzaService {
                                                 .input('pId', sql.Int, id)
                                                 .query('SELECT * FROM Pizzas WHERE id = @pId');
             returnEntity = result.recordsets[0][0]; //
+            let svc2=  new IngredientesService();
+
+            returnEntity.Ingredientes = await svc2.getById(id); 
         } catch (error) {
             res.status(404).send('No se encontró (404)!!');
         }
