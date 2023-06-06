@@ -12,10 +12,10 @@ router.get('/getAll', async (req, res) => {
 
 router.get('/getById/:id', async (req, res) => {
     try {
-      let resultado = await svc.getById(req.params.id);
+      let resultado = await svc.getByIdPizza(req.params.id);
      return res.status(200).json(resultado);
       console.log(resultado);
-    } catch (res) {
+    } catch (error) {
       console.log(error);
     }
      

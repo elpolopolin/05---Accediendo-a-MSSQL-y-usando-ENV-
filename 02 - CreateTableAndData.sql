@@ -144,7 +144,7 @@ SET IDENTITY_INSERT [dbo].[Pizzas] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Unidades] ON 
 GO
-INSERT [dbo].[Unidades] ([Id], [Nombre]) VALUES (1, N'Unidad')
+INSERT [dbo].[Unidades] ([Id], [Nombre]) VALUES (1, N'Kg')
 GO
 INSERT [dbo].[Unidades] ([Id], [Nombre]) VALUES (2, N'Gramos')
 GO

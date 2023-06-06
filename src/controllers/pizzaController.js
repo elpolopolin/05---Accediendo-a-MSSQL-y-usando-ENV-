@@ -15,7 +15,7 @@ const svc = new PizzaService();
           let resultado = await svc.getById(req.params.id);
          return res.status(200).json(resultado);
           console.log(resultado);
-        } catch (res) {
+        } catch (error) {
           console.log(error);
         }
          
@@ -50,6 +50,7 @@ const svc = new PizzaService();
          resultado = await svc.update(pizza)
         return res.status(200).json(resultado);
       })
+      
 
       router.delete('/delete/:id', async (req, res) => {
         let resultado = await svc.deleteById(req.params.id);

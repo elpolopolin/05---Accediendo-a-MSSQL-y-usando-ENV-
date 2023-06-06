@@ -32,11 +32,13 @@ class PizzaService {
                                                 .query('SELECT * FROM Pizzas WHERE id = @pId');
             returnEntity = result.recordsets[0][0]; //
             let svc2=  new IngredientesService();
-
-            returnEntity.Ingredientes = await svc2.getById(id); 
+        
+            returnEntity.Ingredientes = await svc2.getByIdPizza(id);
+        
         } catch (error) {
-            res.status(404).send('No se encontró (404)!!');
+            console.log(error);
         }
+        
         return returnEntity;
     }
 

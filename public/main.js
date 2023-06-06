@@ -1,6 +1,7 @@
 
 
 
+
 function getAll () {
 
     axios
@@ -22,7 +23,7 @@ function getAll () {
                 table += `<td scope="col" class="text-center">${unPizza.Importe}</td>`;
                 table += `<td scope="col" class="text-center">${unPizza.LibreGluten}</td>`;
                 table += `<td scope="col" class="text-center"><button onclick="VerIngredientes(${unPizza.Id})">Ver Ingredientes</button></td>`;
-                table += `<td scope="col" class="text-center"><button onclick="VerIngredientes(${unPizza.Id})">Eliminar</button></td>`;
+                table += `<td scope="col" class="text-center"><button onclick="eliminar(${unPizza.Id})">Eliminar</button></td>`;
                 table += `</tr>`;
               });
               table += "</table>";
@@ -39,7 +40,8 @@ function getAll () {
 
     function VerIngredientes (id) {
         console.log("VerIngredientes");
-        let html = `<center> <b> Ingredientes </b> <p>` 
+        let olop = '<ul class="list-group">';
+        let html = "";
         document.getElementById("pizzas-list").innerHTML = "";
         url = "http://localhost:3000/ingredientes/getbyid/" + id;
         axios
@@ -51,59 +53,19 @@ function getAll () {
             console.log(resultado);
 
             resultado.forEach((unResultado, i) => {
-
-                
-                url2 = "http://localhost:3000/ingredientes/getIngredienteById/"+ unResultado.IdIngrediente;
-
-                axios
-                .get(url2)
-                .then((resulta) => {
-                    var resultado2 = resulta.data;   
-                    console.log(resultado2)   
-                    resultado2.forEach((unResultado2, i) => {     
     
-                    html += `${unResultado2.Nombre}`
-                 })
-                 html += `</p> </center>`
-                 document.getElementById("pizzas-list").innerHTML = html;
-            })
-           
+                olop += ` <li class="list-group-item"><b class="text-danger"> ${unResultado.Nombre}: ${unResultado.Cantidad} ${unResultado.NombreUnidad}</b>  </li>`    
+                 
+            })  
+            olop += '</ul>';
+            html += `<br> <center> <b> Ingredientes: </b> <div class="container"> <div class="row">  ${olop} </div> </div>  </center>`
+            document.getElementById("pizzas-list").innerHTML = html;
             
         })   
 
-       
-    })
     
     }
 
-    function getIngredientes () {
-
-        axios
-        .get("http://localhost:3000/ingredientes/getAll")
-    
-        .then((result) => {
-            var resultado = result.data
-            console.log(resultado);
-                
-                let table = '<table class="table table-striped table-hover">';
-                table += '<h1 class="text-center"> Ingredientes </h1>';
-                
-                resultado.forEach((unPizza, index) => {
-                    table += `<tr>`;
-                    table += `<td scope="col" class="text-center">${unPizza.Nombre}</td>`;
-                    table += `</tr>`;
-                  });
-                  table += "</table>";
-                  document.getElementById("pizzas-list").innerHTML = table;
-            
-                })
-        
-    
-        .catch((error) => {
-            console.log(error);
-        })
-    
-        }
 
     
 
@@ -113,7 +75,9 @@ function getAll () {
        
         axios.delete(url);
 
-        getAll();
+        
+       getAll();
+       
         
     }
 
@@ -130,11 +94,17 @@ function getByid () {
         
         var resultado = result.data;
         console.log(resultado);
+        let ingre = '<p class="text-danger">';
         let pizza = `<ul>Pizza: ${Id}`;
         pizza += `<li> Nombre: ${resultado.Nombre} </li> `
         pizza += `<li> Descripcion: ${resultado.Descripcion} </li> `
         pizza += `<li> Importe: ${resultado.Importe} </li> `
         pizza += `<li> libreGluten: ${resultado.LibreGluten} </li> </ul> `
+        pizza += `<b>Ingredientes</b>`
+        resultado.Ingredientes.forEach((unIngrediente, index) => {
+            ingre += ` ${unIngrediente.Nombre} ,`
+        });
+        pizza += `${ingre} </p>`
         document.getElementById("pizza-byId").innerHTML = pizza;
         VerIngredientes2(Id);
     })
@@ -216,42 +186,27 @@ function insert () {
 
 }
 
-function VerIngredientes2 (id) {
-    console.log("VerIngredientes");
-    let html = `<center> <b> Ingredientes </b>` 
+function getIngredientes() {
     
-    url = "http://localhost:3000/ingredientes/getbyid/" + id;
-    axios
-    .get(url)
+        axios
 
-    .then((result) => {
+        .get("http://localhost:3000/ingredientes/getAll")
 
-        var resultado = result.data;
-        console.log(resultado);
+        .then((result) => {
+            var resultado = result.data
+            let table = '<table class="table table-striped table-hover">';
+            table += `<thead class="table"><tr><th class="col-1 text-center">Id</th><th class="col-3">Nombre</th> `
 
-        resultado.forEach((unResultado, i) => {
+            resultado.forEach((unResultado, index)=> {
+                table += `<tr>`;
+                table += `<td scope="col" class="text-center">${unResultado.Id}</td>`;
+                table += `<td scope="col" class="">${unResultado.Nombre}</td>`;
+                table += `</tr>`;
+            })
 
-            
-            url2 = "http://localhost:3000/ingredientes/getIngredienteById/"+ unResultado.IdIngrediente;
-
-            axios
-            .get(url2)
-            .then((resulta) => {
-                var resultado2 = resulta.data;   
-                console.log(resultado2)   
-                resultado2.forEach((unResultado2, i) => {     
-
-                html += ` <p> ${unResultado2.Nombre} </p>`
-             })
-             
-             document.getElementById("pizza-byId").innerHTML += html;
-        })
-        
-        
-    })   
-
-   
-})
-
+            table += `</table>`;
+            document.getElementById("pizzas-list").innerHTML = table;
+        });
 }
+
 
