@@ -2,7 +2,7 @@ const config = {
 
     user    : 'Pizzas',
     password: 'VivaLaMuzza123',
-    server: 'A-PHZ2-CEO-05',
+    server: 'A-PHZ2-LUM-18',
     database: 'DAI-Pizzas',
     options : {
         trustServerCertificate  : true,
