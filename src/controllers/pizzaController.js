@@ -1,6 +1,7 @@
 import { Router } from "express";
 import Pizza from "./../models/pizza.js";
 import PizzaService from "./../services/pizzas-services.js"
+
 const router = Router();
 const svc = new PizzaService();
 
@@ -18,7 +19,6 @@ const svc = new PizzaService();
         } catch (error) {
           console.log(error);
         }
-         
     })
 
     router.post('/insert', async (req, res) => {

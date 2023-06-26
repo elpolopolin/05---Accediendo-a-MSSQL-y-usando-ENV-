@@ -5,7 +5,7 @@
 function getAll () {
 
     axios
-    .get("http://localhost:3000/getAll")
+    .get("http://localhost:3000/api/getAll")
 
     .then((result) => {
         var resultado = result.data
@@ -43,7 +43,7 @@ function getAll () {
         let olop = '<ul class="list-group">';
         let html = "";
         document.getElementById("pizzas-list").innerHTML = "";
-        url = "http://localhost:3000/ingredientes/getbyid/" + id;
+        url = "http://localhost:3000/ingredientes/api/getbyid/" + id;
         axios
         .get(url)
 
@@ -71,13 +71,11 @@ function getAll () {
 
 
     function eliminar(Id) {
-        url = "http://localhost:3000/delete/" + Id;
-       
+        url = "http://localhost:3000/api/delete/" + Id
         axios.delete(url);
 
         
        getAll();
-       
         
     }
 
@@ -85,7 +83,7 @@ function getByid () {
         document.querySelector("#pizza-byId").innerHTML = "";
         Id = document.getElementById("textId").value;
         document.querySelector("#textId").innerHTML = "";
-        url = "http://localhost:3000/getbyid/" + Id;
+        url = "http://localhost:3000/api/getbyid/" + Id;
         
         axios
     .get(url)
@@ -119,7 +117,7 @@ function getByid () {
 
 function update () {
     id = document.getElementById("textId2").value;
-    url = "http://localhost:3000/update/" + id;
+    url = "http://localhost:3000/api/update/" + id;
 
     nombre = document.getElementById("textNombre").value;
     libregluten = document.getElementById("textLibreGluten").checked;
@@ -154,7 +152,7 @@ function update () {
 
 function insert () {
 
-    url = "http://localhost:3000/insert/" ;
+    url = "http://localhost:3000/api/insert/" ;
 
     nombre = document.getElementById("textNombre").value;
     libregluten = document.getElementById("textLibreGluten").checked;
@@ -190,7 +188,7 @@ function getIngredientes() {
     
         axios
 
-        .get("http://localhost:3000/ingredientes/getAll")
+        .get("http://localhost:3000/api/ingredientes/getAll")
 
         .then((result) => {
             var resultado = result.data

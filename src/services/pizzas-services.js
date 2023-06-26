@@ -91,6 +91,8 @@ class PizzaService {
         let rowsAffected = 0;
         console.log('estoy en:  PizzasService.deleteById(id)');
         try {
+
+            
             let pool    = await sql.connect(config);
             let result = await pool.request()
                                             .input('pId', sql.Int, id)
