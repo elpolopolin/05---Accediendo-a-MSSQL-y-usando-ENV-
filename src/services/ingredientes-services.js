@@ -30,7 +30,7 @@ class IngredientesService {
                                                     Ingredientes.Id, 
                                                     Ingredientes.Nombre,
                                                     Cantidad,
-                                                    Unidades.Id, 
+                                                    Unidades.Id as IdUnidades, 
                                                     Unidades.Nombre as NombreUnidad
                                                 FROM IngredientesXPizzas
                                                 INNER JOIN Ingredientes ON IngredientesXPizzas.idIngrediente = Ingredientes.Id

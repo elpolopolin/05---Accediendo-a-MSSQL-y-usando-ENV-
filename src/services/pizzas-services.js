@@ -6,22 +6,31 @@ import IngredientesService from './ingredientes-services.js';
 
 class PizzaService {
 
-    getAll = async () => { 
+    getAll = async (incluirIngredientes) => {
+        let svc2 = new IngredientesService();
+      
         let returnEntity = null;
-        console.log('estoy en PizzasServices.getaLL');
+        console.log('Estoy en PizzasServices.getAll');
         try {
-            let pool    = await sql.connect(config);
-            let result  = await pool.request()
-                                                .query('SELECT * FROM Pizzas')
-            returnEntity = result.recordset;
-            console.log(returnEntity);
+          let pool = await sql.connect(config);
+          let result = await pool.request().query('SELECT * FROM Pizzas');
+          returnEntity = result.recordset;
+      
+          if (incluirIngredientes === true) {
+            for (let i = 0; i < returnEntity.length; i++) {
+              returnEntity[i].Ingredientes = await svc2.getByIdPizza(returnEntity[i].Id);
+              console.log(returnEntity[i].Id);
+            }
+          }
+      
+          console.log(returnEntity);
         } catch (error) {
-            console.log(error);
+          console.log(error);
         }
         return returnEntity;
-    }
+      };
 
-    getById = async (id) => {
+    getById = async (id, incluirIngredientes) => {
         
         let returnEntity = null;
         console.log('Estoy en: PizzasService.getById(id)');
@@ -32,9 +41,11 @@ class PizzaService {
                                                 .query('SELECT * FROM Pizzas WHERE id = @pId');
             returnEntity = result.recordsets[0][0]; //
             let svc2=  new IngredientesService();
-        
+            
+            if (incluirIngredientes === true) {
             returnEntity.Ingredientes = await svc2.getByIdPizza(id);
-        
+            }
+            
         } catch (error) {
             console.log(error);
         }

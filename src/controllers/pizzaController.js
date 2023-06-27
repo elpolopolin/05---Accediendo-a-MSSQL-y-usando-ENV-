@@ -5,15 +5,20 @@ import PizzaService from "./../services/pizzas-services.js"
 const router = Router();
 const svc = new PizzaService();
 
-    router.get('/getAll', async (req, res) => {
+    router.get('/', async (req, res) => {
+      let incluirIngredientes = (typeof req.query.incluirIngredientes !== 'undefined' && req.query.incluirIngredientes.toLowerCase() === 'true')
+      let incluirUnidades = (typeof req.query.incluirUnidades !== 'undefined' && req.query.incluirUnidades.toLowerCase() === 'true')
+
         console.log("Entre oficialmente a ControllerPizza");
-        let resultado = await svc.getAll();
+        let resultado = await svc.getAll(incluirIngredientes); //no le mando las unidades true ya que yo asumo que los ingredientes tienen que venir con sus respectivas unidades
        return res.status(200).json(resultado);
     });
 
     router.get('/getById/:id', async (req, res) => {
+
+      let incluirIngredientes = (typeof req.query.incluirIngredientes !== 'undefined' && req.query.incluirIngredientes.toLowerCase() === 'true')
         try {
-          let resultado = await svc.getById(req.params.id);
+          let resultado = await svc.getById(req.params.id, incluirIngredientes);
          return res.status(200).json(resultado);
           console.log(resultado);
         } catch (error) {
@@ -52,7 +57,7 @@ const svc = new PizzaService();
       })
       
 
-      router.delete('/delete/:id', async (req, res) => {
+      router.delete('/pizzas/delete/:id', async (req, res) => {
         let resultado = await svc.deleteById(req.params.id);
         return res.status(200).json(resultado);
       })

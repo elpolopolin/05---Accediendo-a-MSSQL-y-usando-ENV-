@@ -23,7 +23,7 @@ app.use(express.static('public'));
 //app.use(middleware.tiempoTranscurridoMiddleware());
 // app.use(createdBy);
 
-app.use("/api", PizzaRouter);
+app.use("/api/pizzas", PizzaRouter);
 app.use("/api/ingredientes", IngredientesRouter);
 
 
