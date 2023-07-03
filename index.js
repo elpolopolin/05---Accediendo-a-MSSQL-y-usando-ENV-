@@ -4,6 +4,7 @@ import PizzaService from "./src/services/pizzas-services.js";
 import Pizza from "./src/models/pizza.js";
 import express from "express";
 import PizzaRouter from "./src/controllers/pizzaController.js";
+import UsuariosRouter from "./src/controllers/usuarios-controller.js"
 import IngredientesRouter from  "./src/controllers/ingredientesController.js"
 import middlewareClase from "./src/middleware/middlewaresClase.js";
 let svc = new PizzaService()
@@ -20,9 +21,9 @@ const port = 3000;
 
 app.use(express.json());
 app.use(express.static('public'));
-//app.use(middleware.tiempoTranscurridoMiddleware());
+// app.use(middleware.tiempoTranscurridoMiddleware());
 // app.use(createdBy);
-
+app.use("/api/usuarios", UsuariosRouter);
 app.use("/api/pizzas", PizzaRouter);
 app.use("/api/ingredientes", IngredientesRouter);
 
