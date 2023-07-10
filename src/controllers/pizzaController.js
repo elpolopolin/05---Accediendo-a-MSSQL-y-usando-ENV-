@@ -57,7 +57,7 @@ const svc = new PizzaService();
       })
       
 
-      router.delete('/pizzas/delete/:id', async (req, res) => {
+      router.delete('/delete/:id', async (req, res) => {
         let resultado = await svc.deleteById(req.params.id);
         return res.status(200).json(resultado);
       })

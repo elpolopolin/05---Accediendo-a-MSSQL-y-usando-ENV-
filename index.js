@@ -7,6 +7,7 @@ import PizzaRouter from "./src/controllers/pizzaController.js";
 import UsuariosRouter from "./src/controllers/usuarios-controller.js"
 import IngredientesRouter from  "./src/controllers/ingredientesController.js"
 import middlewareClase from "./src/middleware/middlewaresClase.js";
+import autenticationMiddleWare from './src/middleware/autenticacion-middleware.js';
 let svc = new PizzaService()
 
 //Un Middleware que agrege en todos los responses un Header "CreatedBy" = "nombre del alumno"
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use(express.static('public'));
 // app.use(middleware.tiempoTranscurridoMiddleware());
 // app.use(createdBy);
+app.use(autenticationMiddleWare.requiereAutenticacion);
 app.use("/api/usuarios", UsuariosRouter);
 app.use("/api/pizzas", PizzaRouter);
 app.use("/api/ingredientes", IngredientesRouter);
